@@ -4,11 +4,11 @@
 ///////////////////////////////////////////////////
 var padding = 50;
 var colors = {
-  background: "rgba(1,32,26,0.5)",
-  elements: "rgba(132,228,174,1)",
-  hudFontBright: "rgba(132,228,174,1)",
-  hudFontDark: "rgba(1, 8, 4, 0.5)",
-  foreBG: "rgba(1, 16, 13, 0.5)"
+  background: 'rgba(1,32,26,0.5)',
+  elements: 'rgba(132,228,174,1)',
+  hudFontBright: 'rgba(132,228,174,1)',
+  hudFontDark: 'rgba(1, 8, 4, 0.5)',
+  foreBG: 'rgba(1, 16, 13, 0.5)'
 }
 
 // set up screen dimension globals and canvas/canvasRenderingContext globals
@@ -16,8 +16,8 @@ var screenWidth = innerWidth;
 var screenHeight = innerHeight;
 
 // canvas and canvas context
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
 
 // set the canvas width and height intially; also will be set during screen resizes
 canvas.width = screenWidth;
@@ -56,7 +56,7 @@ function Player(num) {
   }
 
   this.move = function(dir){                // sets and constrains the player's y position
-    if (dir == "up" && this.bBox.top > 0){
+    if (dir == 'up' && this.bBox.top > 0){
       this.y -= this.speed;
     }
     else if (dir == "down" && this.bBox.bottom < screenHeight) {
@@ -154,19 +154,19 @@ function SoundSource() {
   
   ///////////////////// when ball meets paddle /////////////////////
   this.hitPaddle = this.ctx.createOscillator();
-  this.hitPaddle.type = "sine";
+  this.hitPaddle.type = 'sine';
   this.hitPaddle.frequency.value = 1600; // value in hertz
   this.hitPaddle.start();
 
   ///////////////////// when ball meets wall /////////////////////
   this.hitWall = this.ctx.createOscillator();
-  this.hitWall.type = "sine";
+  this.hitWall.type = 'sine';
   this.hitWall.frequency.value = 300;
   this.hitWall.start();
 
   ///////////////////// when a point is scored /////////////////////
   this.score = this.ctx.createOscillator();
-  this.score.type = "sine";
+  this.score.type = 'sine';
   this.score.frequency.value = 1000;
   this.score.start();
 
@@ -180,7 +180,7 @@ function SoundSource() {
 }
 
 // pause automatically when the game window loses focus
-window.addEventListener("blur", function(e){
+window.addEventListener('blur', function(e){
   if (!title) {
     paused = true;
     help = false;
@@ -188,7 +188,7 @@ window.addEventListener("blur", function(e){
 })
 
 ///////////////////// key presses /////////////////////
-addEventListener("keydown", function(e){
+addEventListener('keydown', function(e){
   switch (e.keyCode) {
     case 32:                // spacebar to start or pause
       e.preventDefault();
@@ -237,7 +237,7 @@ addEventListener("keydown", function(e){
 // behavior when multiple directional inputs are        //
 // received simultaneously                              //
 //////////////////////////////////////////////////////////
-addEventListener("keyup", function(e){
+addEventListener('keyup', function(e){
   e.preventDefault();
   switch (e.keyCode) {
     case 87: //p1 up
@@ -260,7 +260,7 @@ addEventListener("keyup", function(e){
 // the position of the ball and paddles, resize   //
 // the canvas, and re-render the scene            //
 ////////////////////////////////////////////////////
-addEventListener("resize", function(){
+addEventListener('resize', function(){
   if (!paused && !title) {paused = true;}
   scalePosition(ball);
   scalePosition(p1);
@@ -325,7 +325,7 @@ function renderScene() {
 
   //draw player scores
   ctx.font = fonts.medium;
-  ctx.textAlign = "center";
+  ctx.textAlign = 'center';
   ctx.fillStyle = colors.hudFontBright;
   ctx.fillText(p1.points, screenWidth / 2 - 40, 50);
   ctx.fillText(p2.points, screenWidth / 2 + 40, 50);
@@ -343,34 +343,34 @@ function renderScene() {
   //draw the help screen
   if (help) {
     ctx.font = fonts.large;
-    ctx.textAlign = "center";
+    ctx.textAlign = 'center';
     ctx.fillStyle = colors.hudFontBright;
-    ctx.fillText("Help", screenWidth / 2, screenHeight / 2 - 60);
+    ctx.fillText('Help', screenWidth / 2, screenHeight / 2 - 60);
     ctx.font = fonts.small;
-    ctx.fillText("Player 1: W and S", screenWidth / 2, screenHeight / 2 + 60);
-    ctx.fillText("Player 2: up and down arrows", screenWidth / 2, screenHeight / 2 + 120);
-    ctx.fillText("Spacebar to pause, H for help screen", screenWidth / 2, screenHeight / 2 + 180);
+    ctx.fillText('Player 1: W and S', screenWidth / 2, screenHeight / 2 + 60);
+    ctx.fillText('Player 2: up and down arrows', screenWidth / 2, screenHeight / 2 + 120);
+    ctx.fillText('Spacebar to pause, H for help screen', screenWidth / 2, screenHeight / 2 + 180);
   }
   //draw title screen
   else {
     if (title) {
       ctx.font = fonts.large;
-      ctx.textAlign = "center";
+      ctx.textAlign = 'center';
       ctx.fillStyle = colors.hudFontBright;
-      ctx.fillText("Pong", screenWidth / 2, screenHeight / 2 - 60);
+      ctx.fillText('Pong', screenWidth / 2, screenHeight / 2 - 60);
       ctx.font = fonts.medSmall;
-      ctx.fillText("Press spacebar to begin", screenWidth / 2, screenHeight / 2 + 60);
-      ctx.fillText("Press H for help", screenWidth / 2, screenHeight / 2 + 120);
+      ctx.fillText('Press spacebar to begin', screenWidth / 2, screenHeight / 2 + 60);
+      ctx.fillText('Press H for help', screenWidth / 2, screenHeight / 2 + 120);
     }
     //draw the pause screen
     if (paused) {
       ctx.font = fonts.large;
-      ctx.textAlign = "center";
+      ctx.textAlign = 'center';
       ctx.fillStyle = colors.hudFontBright;
-      ctx.fillText("Paused", screenWidth / 2, screenHeight / 2 - 60);
+      ctx.fillText('Paused', screenWidth / 2, screenHeight / 2 - 60);
       ctx.font = fonts.medSmall
-      ctx.fillText("Press spacebar to unpause", screenWidth / 2, screenHeight / 2 + 60);
-      ctx.fillText("Press H for help", screenWidth / 2, screenHeight / 2 + 120);
+      ctx.fillText('Press spacebar to unpause', screenWidth / 2, screenHeight / 2 + 60);
+      ctx.fillText('Press H for help', screenWidth / 2, screenHeight / 2 + 120);
     }
   }
 }
@@ -387,10 +387,10 @@ function scorePoint(player) {
 ///////////////////// main game loop /////////////////////
 function gameLoop() {
   if (!paused && !help && !title && Date.now() - start > 2000) {    // if not paused, and the help screen is not showing, and it's been more than 2 seconds since start was updated
-    if (p1.pressed.up) { p1.move("up"); }           // move players if their movement flags are set
-    if (p1.pressed.down) { p1.move("down"); }
-    if (p2.pressed.up) { p2.move("up"); }
-    if (p2.pressed.down) { p2.move("down"); }
+    if (p1.pressed.up) { p1.move('up'); }           // move players if their movement flags are set
+    if (p1.pressed.down) { p1.move('down'); }
+    if (p2.pressed.up) { p2.move('up'); }
+    if (p2.pressed.down) { p2.move('down'); }
 
     //check for window border collisions
     if (ball.y - ball.r + ball.ySpeed <= 0 || ball.y + ball.r + ball.ySpeed >= screenHeight) {
